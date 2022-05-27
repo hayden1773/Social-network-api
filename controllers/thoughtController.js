@@ -1,30 +1,22 @@
-const { reactions, User, thoughts } = require('../models');
+const { reaction, User, thoughts } = require('../models');
 
-// TODO: Create an aggregate function to get the number of students overall
-const headCount = async () =>
+// TODO: Create an aggregate function to get the number of thoughts overall
+const thoughtText = async () =>
   thoughts.aggregate()
     // Your code here
     .then((numberOfthoughts) => numberOfthoughts);
 
-// TODO: Create a function that executes the aggregate method on the Student model and will calculate the overall grade by using the $avg operator
-const grade = async (User) =>
-  User.aggregate([
-    {
-      $unwind: '$reactions',
-    },
-    {
-      
-    },
-  ]);
+
 
 module.exports = {
+  
   // Get all thoughts
   getthoughts(req, res) {
     thoughts.find()
       .then(async (thoughts) => {
         const thoughtsObj = {
           thoughts,
-          headCount: await headCount(),
+          thoughtText: await thoughtText(),
         };
         return res.json(thoughtsObj);
       })
@@ -33,7 +25,7 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  // Get a single thought
+ 
   getSinglthought(req, res) {
     Student.findOne({ _id: req.params.thoughtId })
       .select('-__v')
@@ -51,13 +43,13 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  // create a new thought
+  
   creatthought(req, res) {
     thought.create(req.body)
       .then((thought) => res.json(thought))
       .catch((err) => res.status(500).json(err));
   },
-  // Delete a student and remove them from the course
+  
   deletethought(req, res) {
     thought.findOneAndRemove({ _id: req.params.thoughtId })
       .then((thought) =>
@@ -82,12 +74,12 @@ module.exports = {
       });
   },
 
-  // Add an reaction to a thought
+  
   addReaction(req, res) {
     console.log('You are adding a reaction');
     console.log(req.body);
     thought.findOneAndUpdate(
-      { _id: req.params.studentId },
+      { _id: req.params.thoughtId },
       { $addToSet: { reactions: req.body } },
       { runValidators: true, new: true }
     )
@@ -100,7 +92,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Remove reaction from a thought
+  
   removeReaction(req, res) {
     thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
