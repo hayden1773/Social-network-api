@@ -35,6 +35,12 @@ USE `NPM RUN SEED`
 
 
 ## Usage
+
+
+![Gif of Social API functioning](./assets/Untitled_%20May%2031%2C%202022%208_50%20AM.gif)
+
+Link to DEMO: https://drive.google.com/file/d/1czeOAh8Kzb-x5pOGSUx96hv8fwJwHN2K/view
+
 GIVEN a social network API
 WHEN I enter the command to invoke the application
 THEN my server is started and the Mongoose models are synced to the MongoDB database
