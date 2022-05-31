@@ -1,4 +1,7 @@
+// REQURIED MODELS FOR EXPORT
+// USER ROUTE MODEL
 const User = require('./User');
-const thoughts = require('./thoughts');
+// THOUGHT ROUTE MODEL USING REACTION WITHIN
+const Thought = require('./Thought');
 
-module.exports = { User, thoughts };
+module.exports = { User, Thought};
